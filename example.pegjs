@@ -1,5 +1,5 @@
 start
-  = additive
+  = additive "\n"
 
 additive
   = left:multiplicative "+" right:additive { return left + right; }

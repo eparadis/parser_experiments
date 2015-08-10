@@ -7,8 +7,10 @@ fs.readFile('example.pegjs', 'utf8', function(err,data) {
   }
   var parser = PEG.buildParser( data);
 
-  var result = parser.parse("2*(3+4)");
+  fs.readFile('example.input', 'utf8', function( innererr, innerdata) {
+    var result = parser.parse(innerdata);
 
-  console.log( result);
+    console.log( result);
+  });
 });
 
