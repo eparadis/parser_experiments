@@ -1,5 +1,6 @@
 {
   function noUndef(z) { return z != undefined; };
+  function PRINT(x) { return "console.log(x) with x = " + x; };
 }
 
 start 
@@ -18,8 +19,8 @@ command
  = cmd:(print_command eol) { return cmd[0]; }
 
 print_command
- = "PRINT" ws guts:print_arguments { return guts.join(''); }
- / x:("PRINT") { return "\n"; }
+ = "PRINT" ws guts:print_arguments { return function(){ PRINT(guts.join(''));}; }
+ / x:("PRINT") { return function(){ PRINT('\n'); }; }
 
 print_arguments
  = args: (print_argument*) { return args.filter(noUndef); }
