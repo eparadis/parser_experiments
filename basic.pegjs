@@ -18,27 +18,27 @@ command
  = cmd:(print_command eol) { return cmd[0]; }
 
 print_command
- = "PRINT" ws guts:print_arguments { return guts.filter(noUndef).join(''); }
+ = "PRINT" ws guts:print_arguments { return guts.join(''); }
  / x:("PRINT") { return "\n"; }
 
 print_arguments
- = args: (print_argument ( comma_separator print_argument)*) { return args.filter(noUndef); }
+ = args: (print_argument*) { return args.filter(noUndef); }
 
 print_argument
- = ws* q:quoted_string ws* { return q[1]; }
- / ws* i:integer ws* { return i; }
+ = comma_separator* ws* q:quoted_string ws* { return q; }
+ / comma_separator* ws* i:integer ws* { return i; }
 
 comma_separator
  = x:( "," ) { return undefined; }
 
 ws
- = x: " " { return undefined; }
+ = x:(" ") { return undefined; }
 
 eol
  = x:"\n" { return undefined; }
 
 quoted_string
- = '"' quoted_inner  '"'
+ = '"' qi:quoted_inner  '"' { return qi; }
 
 quoted_inner
  = word:[a-z0-9 ]* { return word.join(''); }
