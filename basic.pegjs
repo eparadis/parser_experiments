@@ -1,6 +1,7 @@
 {
   function noUndef(z) { return z != undefined; };
-  function PRINT(x) { return "console.log(x) with x = " + x; };
+  function PRINT(x) { console.log(x); };
+  function NOP() {};
 }
 
 start 
@@ -17,6 +18,16 @@ integer "integer"
 
 command
  = cmd:(print_command eol) { return cmd[0]; }
+ / if_command
+
+if_command
+ = "IF" cond:if_condition "THEN" then_clause:if_then_clause eol { return cond? then_clause : NOP;}
+
+if_condition
+ = ws value:integer ws { return value == 0? true : false; } 
+
+if_then_clause
+ = ws cmd:print_command { return cmd; }
 
 print_command
  = "PRINT" ws guts:print_arguments { return function(){ PRINT(guts.join(''));}; }

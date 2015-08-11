@@ -5,3 +5,5 @@
 45 PRINT 101
 50 PRINT 9999, " was 9999 and twenty is ", 20
 60 PRINT 1, 2, 3, 4
+70 IF 1 THEN PRINT "was one"
+80 IF 0 THEN PRINT "was zero"
