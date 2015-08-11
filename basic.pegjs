@@ -1,41 +1,44 @@
+{
+  function noUndef(z) { return z != undefined; };
+}
 
 start 
  = line+
 
 line
- = line_number ws command eol
+ = line_number command
 
 line_number
- = integer
+ = number:integer ws { return number; }
 
 integer "integer"
  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
 
 command
- = print_command 
+ = cmd:(print_command eol) { return cmd[0]; }
 
 print_command
- = "PRINT" ws print_arguments 
- / "PRINT"
+ = "PRINT" ws guts:print_arguments { return guts.filter(noUndef).join(''); }
+ / x:("PRINT") { return "\n"; }
 
 print_arguments
- = print_argument ( comma_separator print_argument)*
+ = args: (print_argument ( comma_separator print_argument)*) { return args.filter(noUndef); }
 
 print_argument
- = quoted_string
+ = q:quoted_string { return q[1]; }
  / integer
 
 comma_separator
- = ws* "," ws*
+ = x:(ws* "," ws*) { return undefined; }
 
 ws
- = " "
+ = x: " " { return undefined; }
 
 eol
- = "\n"
+ = x:"\n" { return undefined; }
 
 quoted_string
  = '"' quoted_inner  '"'
 
 quoted_inner
- = [a-z0-9 ]*
+ = word:[a-z0-9 ]* { return word.join(''); }
