@@ -25,11 +25,11 @@ print_arguments
  = args: (print_argument ( comma_separator print_argument)*) { return args.filter(noUndef); }
 
 print_argument
- = q:quoted_string { return q[1]; }
- / integer
+ = ws* q:quoted_string ws* { return q[1]; }
+ / ws* i:integer ws* { return i; }
 
 comma_separator
- = x:(ws* "," ws*) { return undefined; }
+ = x:( "," ) { return undefined; }
 
 ws
  = x: " " { return undefined; }
