@@ -1,7 +1,9 @@
 {
+  //var POINTER = 0;
   function noUndef(z) { return z != undefined; };
   function PRINT(x) { console.log(x); };
   function NOP() {};
+  function SET_POINTER(value) { POINTER = value; };
 }
 
 start 
@@ -19,6 +21,10 @@ integer "integer"
 command
  = cmd:(print_command eol) { return cmd[0]; }
  / if_command
+ / goto_cmd:(goto_command eol) { return goto_cmd[0]; }
+
+goto_command
+ = "GOTO" ws target:integer { return function(target){ SET_POINTER(target); }; }
 
 if_command
  = "IF" cond:if_condition "THEN" then_clause:if_then_clause eol { return cond? then_clause : NOP;}
