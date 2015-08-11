@@ -19,7 +19,11 @@ print_command
  / "PRINT"
 
 print_arguments
- = quoted_string ( comma_separator quoted_string)*
+ = print_argument ( comma_separator print_argument)*
+
+print_argument
+ = quoted_string
+ / integer
 
 comma_separator
  = ws* "," ws*
@@ -34,4 +38,4 @@ quoted_string
  = '"' quoted_inner  '"'
 
 quoted_inner
- = [a-z ]*
+ = [a-z0-9 ]*

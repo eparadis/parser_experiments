@@ -2,3 +2,5 @@
 20 PRINT "hello world"
 30 PRINT "hello world", "another"
 40 PRINT "hello world" , "another"
+45 PRINT 101
+50 PRINT 9999, " was 999 and twenty is ", 20
