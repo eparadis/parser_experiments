@@ -4,10 +4,16 @@
   function PRINT(x) { console.log(x); };
   function NOP() {};
   function SET_POINTER(value) { POINTER = value; };
+  function execute_lines( lines) {
+    for(var i=0; i< lines.length; i+=1) {
+      var action = lines[i][1];
+      action();
+    }
+  }
 }
 
 start 
- = line+
+ = lines:line+ { return execute_lines(lines); }
 
 line
  = line_number command
