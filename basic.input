@@ -1,3 +1,4 @@
+1 PRINT "start of program"
 5 GOTO 60
 10 PRINT
 20 PRINT "hello world"
