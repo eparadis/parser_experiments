@@ -1,5 +1,5 @@
 1 PRINT "start of program"
-5 GOTO 60
+5 GOTO 45
 10 PRINT
 20 PRINT "hello world"
 30 PRINT "hello world", "another"
@@ -9,3 +9,7 @@
 60 PRINT 1, 2, 3, 4
 70 IF 1 THEN PRINT "was one"
 80 IF 0 THEN PRINT "was zero"
+90 IF 1 THEN GOTO 110
+100 IF 0 THEN GOTO 120
+110 PRINT "you wont see this"
+120 PRINT "you will see this"
